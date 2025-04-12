@@ -37,7 +37,7 @@ def create_ohlc_table(symbol, direction):
     conn.commit()
 
 
-def store_daily_data(symbol, direction):
+def store_weekly_data(symbol, direction):
     ta = TA_Handler(
         symbol=symbol,
         exchange=exchange,
@@ -119,7 +119,7 @@ async def compare_lows(symbol, low, close):
     await asyncio.gather(*tasks)  # Run all tasks concurrently
 
 
-def h_ohlc(symbol):
+def h4_ohlc(symbol):
     ta = TA_Handler(
         symbol=symbol,
         exchange=exchange,
@@ -139,13 +139,13 @@ async def main():
         for symbol in symbols:
             for direction in directions:
                 create_ohlc_table(symbol, direction)
-                store_daily_data(symbol, direction)
+                store_weekly_data(symbol, direction)
             filter_highs(symbol)
             filter_lows(symbol)
 
     tasks = []  # Collect async tasks
     for symbol in symbols:
-        high, low, close = h_ohlc(symbol)
+        high, low, close = h4_ohlc(symbol)
         print(symbol, high, low, close)
         tasks.append(compare_highs(symbol, high, close))
         tasks.append(compare_lows(symbol, low, close))
