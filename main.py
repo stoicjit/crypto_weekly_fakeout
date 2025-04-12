@@ -135,7 +135,7 @@ def h4_ohlc(symbol):
 
 
 async def main():
-    if time.localtime()[3] == 23 and datetime.datetime.today().weekday() == 6:
+    if time.localtime()[3] == 21 and datetime.datetime.today().weekday() == 5:
         for symbol in symbols:
             for direction in directions:
                 create_ohlc_table(symbol, direction)
